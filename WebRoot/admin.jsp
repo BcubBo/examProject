@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript" src="js/jquery-3.2.1.js"></script>
 <script type="text/javascript" src="js/adminCheck.js"></script>
+<script type="text/javascript" src="js/logout.js"></script>
 <title>图书展示</title>
 <style type="text/css">
 *{
@@ -27,7 +28,7 @@
   </tr>
     <tr>
     <td width="1000px" height="33" colspan="11" align="right">
-    当前用户${userCode}<a href="${pageContext.request.contextPath}/logout.do">退出</a>
+    当前用户${userCode}<a id="logout" href="${pageContext.request.contextPath}/logout.do">退出</a>
     </td>
    
   </tr>

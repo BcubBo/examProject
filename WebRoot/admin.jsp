@@ -28,7 +28,7 @@
   </tr>
     <tr>
     <td width="1000px" height="33" colspan="11" align="right">
-    当前用户${userCode}<a id="logout" href="${pageContext.request.contextPath}/logout.do">退出</a>
+    当前用户:&nbsp;&nbsp;&nbsp;&nbsp;${userCode}<button id="logout">退出</button>
     </td>
    
   </tr>

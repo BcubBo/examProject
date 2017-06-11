@@ -3,7 +3,17 @@ $(function(){
 	
 	$("#logout").bind("click",function(){
 		
-		confirm("是否退出？");
+		if(confirm("是否退出？")){
+			
+			window.location="logout.do";
+			
+			
+			
+		}else{
+			
+			window.location="admin.do";
+			
+		};
 		
 		
 		

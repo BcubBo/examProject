@@ -1,6 +1,6 @@
 package com.bcubbo.pojo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class BookInfo {
 	private int bookId;
@@ -13,7 +13,7 @@ public class BookInfo {
 	private String publishPress;
 	private int isBorrow;
 	private String createBy;
-	private String creationTime;
+	private Date creationTime;
 	private String typeName;
 	private Date lastUpdateTime;
 	public String getTypeName() {
@@ -70,10 +70,10 @@ public class BookInfo {
 	public void setCreateBy(String createBy) {
 		this.createBy = createBy;
 	}
-	public String getCreationTime() {
+	public Date getCreationTime() {
 		return creationTime;
 	}
-	public void setCreationTime(String creationTime) {
+	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
 	public Date getLastUpdateTime() {

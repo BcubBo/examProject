@@ -3,6 +3,7 @@ package com.bcubbo.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 
@@ -36,9 +37,11 @@ public class LoginSerlvet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//doGet(request, response);
 		HashMap<String,String> resultMap = new HashMap<String,String>();
-
+		Connection connection = OracleConnection.getInstance().getConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSets  = null;
 		String method = request.getParameter("method");
-		ResultSet resultSets = null;
+
 		String userCodeReCall = null;
 
 		UserDaoImpl userDataAccess = new UserDaoImpl();
@@ -49,7 +52,7 @@ public class LoginSerlvet extends HttpServlet {
 			System.out.println("userCode从ajax请求中获取<"+userCode+">");
 			String sql  =  "select * from users where user_code =?";
 			try {
-				resultSets = userDataAccess.queryUsers(sql, params);
+				resultSets = userDataAccess.queryUsers(connection,preparedStatement,sql, params);
 				//;
 				if(resultSets.next()){
 					System.out.println("输出的ResultSets结果集中含有数据");
@@ -90,8 +93,14 @@ public class LoginSerlvet extends HttpServlet {
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-			
+			}finally{
+				
+				
+/*				OracleConnection.closeResource(null, preparedStatement, null);
+				OracleConnection.closeResource(connection, null, null);
+				OracleConnection.closeResource(null, null, resultSets);*/
+				
+				
 			}
 			
 		
@@ -112,7 +121,7 @@ public class LoginSerlvet extends HttpServlet {
 		
 		
 		
-		
+		}	
 		
 		
 	}

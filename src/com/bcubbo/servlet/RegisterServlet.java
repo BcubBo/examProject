@@ -1,6 +1,9 @@
 package com.bcubbo.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.bcubbo.dao.UserDaoImpl;
+import com.bcubbo.tools.OracleConnection;
 
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,7 +24,9 @@ public class RegisterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*HashMap<String,String> resultMap = new HashMap<String,String>();*/
-
+		Connection connection = OracleConnection.getInstance().getConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSets  = null;
 		String methodCheck= request.getParameter("methodCheck");
 		System.out.println("method的值为"+methodCheck);
 		
@@ -59,14 +65,14 @@ public class RegisterServlet extends HttpServlet {
 					
 				}
 				try {
-					
-					int result = userDao.updateUsers(sql, params);
+					//
+					int result = userDao.updateUsers(connection,preparedStatement,sql, params);
 					if(result>0){
 						
 						System.out.println("添加成功条数为:<"+result+">");
 						String sqlCommit = "commit";
 						Object[] commitParam = {};
-						if(userDao.updateUsers(sqlCommit,commitParam)==0){
+						if(userDao.updateUsers(connection,preparedStatement,sqlCommit,commitParam)==0){
 							
 							System.out.println("提交更改成功");
 							//request.getSession().setAttribute("userCode", userCode);
@@ -87,6 +93,14 @@ public class RegisterServlet extends HttpServlet {
 					
 				} catch (Exception e) {
 					e.printStackTrace();
+				}finally{
+/*					
+					OracleConnection.closeResource(null, preparedStatement, null);
+					OracleConnection.closeResource(connection, null, null);
+					OracleConnection.closeResource(null, null, resultSets);*/
+					
+					
+					
 				}
 				
 				

@@ -2,6 +2,8 @@ package com.bcubbo.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONArray;
 import com.bcubbo.dao.UserDaoImpl;
+import com.bcubbo.tools.OracleConnection;
 
 public class LoginDoubleCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,9 +25,11 @@ public class LoginDoubleCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //response.getWriter().append("Served at: ").append(request.getContextPath());
 		HashMap<String,String> resultMap = new HashMap<String,String>();
-
+		Connection connection = OracleConnection.getInstance().getConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSets  = null;
 		String method = request.getParameter("method");
-		ResultSet resultSets = null;
+
 		String userCodeReCall = null;
 		String passwordReCall = null;
 		UserDaoImpl userDataAccess = new UserDaoImpl();
@@ -40,7 +45,7 @@ public class LoginDoubleCheckServlet extends HttpServlet {
 			
 
 			try {
-				resultSets = userDataAccess.queryUsers(sql, params);
+				resultSets = userDataAccess.queryUsers(connection,preparedStatement,sql, params);
 				//;
 				if(resultSets.next()){
 					System.out.println("进入loginCheck块");
@@ -83,7 +88,11 @@ public class LoginDoubleCheckServlet extends HttpServlet {
 				e.printStackTrace();
 			}finally{
 				
-	
+				
+/*				OracleConnection.closeResource(null, preparedStatement, null);
+				OracleConnection.closeResource(connection, null, null);
+				OracleConnection.closeResource(null, null, resultSets);
+				*/
 				
 			}
 		}

@@ -1,8 +1,9 @@
 package com.bcubbo.servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bcubbo.dao.BookInfoDaoImpl;
 import com.bcubbo.pojo.BookInfo;
+import com.bcubbo.tools.OracleConnection;
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -24,14 +26,17 @@ public class AdminServlet extends HttpServlet {
 		/*response.getWriter().append("Served at: ").append(request.getContextPath());*/
 		String sql = "select book_code,book_name,book_type.type_name,book_info.book_type,book_author,publish_date,is_borrow,createby,creation_time,last_updatetime from book_info inner join book_type on book_info.book_type = book_type.id order by creation_time desc";
 		BookInfoDaoImpl bookInfo = new BookInfoDaoImpl();
-		Object[] params = {};
 		
+		Object[] params = {};
+		Connection connection = OracleConnection.getInstance().getConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSets  = null;
 		
 		try {
-			ResultSet resultSets = bookInfo.queryBookInfo(sql, params);
+			resultSets = bookInfo.queryBookInfo(connection,preparedStatement,sql, params);
 			List<BookInfo> bookInfoList = new ArrayList<BookInfo>();
 			
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
 			
 			
 			while(resultSets.next()){
@@ -44,8 +49,8 @@ public class AdminServlet extends HttpServlet {
 				bookItem.setPublishPress(resultSets.getString("publish_date"));
 				bookItem.setIsBorrow(Integer.parseInt(resultSets.getString("is_borrow")));
 				bookItem.setCreateBy(resultSets.getString("createby"));
-				bookItem.setCreationTime(resultSets.getString("creation_time"));
-				bookItem.setLastUpdateTime(format.parse(resultSets.getString("last_updatetime")));		
+				bookItem.setCreationTime(resultSets.getDate("creation_time"));
+				bookItem.setLastUpdateTime((resultSets.getDate("last_updatetime")));		
 				bookInfoList.add(bookItem);
 				System.out.println("上次更新时间为"+resultSets.getString("last_updatetime"));
 				
@@ -65,6 +70,16 @@ public class AdminServlet extends HttpServlet {
 			//在此关闭resultSets
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			
+/*			OracleConnection.closeResource(null, preparedStatement, null);
+			OracleConnection.closeResource(connection, null, null);
+			OracleConnection.closeResource(null, null, resultSets);*/
+			
+			//关闭链接
+			
+			
+			
 		}
 		
 		

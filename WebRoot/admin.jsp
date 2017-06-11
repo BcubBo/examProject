@@ -21,13 +21,13 @@
 
 <body >
 <div align="center">
-<table  width ="1000px" border="0" cellpadding="0" cellspacing="0" align="center">
+<table  width ="1200px" border="0" cellpadding="0" cellspacing="0" align="center">
   <tr>
-    <td width="1000px" height="85" colspan="10" align="center"><h2>图书借阅系统</h2></td>
+    <td width="1000px" height="85" colspan="11" align="center"><h2>图书借阅系统</h2></td>
   </tr>
     <tr>
-    <td width="1000px" height="33" colspan="10" align="right">
-    当前用户${userCode}<a href="${pageContext.request.contextPath}/outLogin.do">退出</a>
+    <td width="1000px" height="33" colspan="11" align="right">
+    当前用户${userCode}<a href="${pageContext.request.contextPath}/logout.do">退出</a>
     </td>
    
   </tr>
@@ -42,6 +42,7 @@
     <td width="200px">创建者</td>
     <td width="200px">创建日期</td>
     <td width="200px">最后更新日期</td>
+    <td width="200px">借阅</td>
 
     
 
@@ -50,7 +51,9 @@
     
   </tr>
   <c:forEach var="book" items="${bookInfoList}"	varStatus="index">
-  	<tr>
+  <c:if test="${index.index %2 == 0}">
+
+  	<tr style="background-color:yellowgreen">
     <td>${book.bookName}</td>
     <td>${book.bookCode}</td>
     <td>${book.typeName}</td>
@@ -60,9 +63,29 @@
     <td>${book.isBorrow}</td>
     <td>${book.createBy}</td> 
     <td>${book.creationTime}</td>
-    <td>${book.lastUpdateTime}</td>   
+    <td>${book.lastUpdateTime}</td>
+    <td><a href="javascript:;">申请借阅</a></td>
+    
     
   </tr>
+  </c:if>
+  <c:if test="${index.index %2 != 0}">
+  <tr style="background-color:gold">
+    <td>${book.bookName}</td>
+    <td>${book.bookCode}</td>
+    <td>${book.typeName}</td>
+    <td>${book.bookType}</td>
+    <td>${book.bookAuthor}</td>
+    <td>${book.publishPress}</td>
+    <td>${book.isBorrow}</td>
+    <td>${book.createBy}</td> 
+    <td>${book.creationTime}</td>
+    <td>${book.lastUpdateTime}</td>
+    <td><a href="javascript:;">申请借阅</a></td>
+    </tr>
+    </c:if>
+    
+  
   
   
   

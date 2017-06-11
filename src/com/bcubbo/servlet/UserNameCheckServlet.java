@@ -2,6 +2,8 @@ package com.bcubbo.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
 
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSONArray;
 import com.bcubbo.dao.UserDaoImpl;
+import com.bcubbo.tools.OracleConnection;
 
 public class UserNameCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,13 +25,15 @@ public class UserNameCheckServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*response.getWriter().append("Served at: ").append(request.getContextPath());*/
-		
+		Connection connection = OracleConnection.getInstance().getConnection();
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSets  = null;
 		
 		HashMap<String,String> resultMap = new HashMap<String,String>();
 
 		String method= request.getParameter("method");
 		System.out.println(method);
-		ResultSet resultSets = null;
+
 		UserDaoImpl userDataAccess = new UserDaoImpl();
 		if(method.equals("checkAccountExist")){
 			//当method为只检查是否存在用户的时候
@@ -37,7 +42,7 @@ public class UserNameCheckServlet extends HttpServlet {
 			System.out.println("userCode从ajax请求中获取<"+userCode+">");
 			String sql  =  "select * from users where user_code =?";
 			try {
-				resultSets = userDataAccess.queryUsers(sql, params);
+				resultSets = userDataAccess.queryUsers(connection,preparedStatement,sql, params);
 				//用户数据访问;
 				if(resultSets.next()){
 					System.out.println("从数据库中输出的ResultSets结果集中含有数据");
@@ -80,7 +85,9 @@ public class UserNameCheckServlet extends HttpServlet {
 			
 			}finally{
 				
-				
+/*				OracleConnection.closeResource(null, preparedStatement, null);
+				OracleConnection.closeResource(connection, null, null);
+				OracleConnection.closeResource(null, null, resultSets);*/
 				
 				
 			}

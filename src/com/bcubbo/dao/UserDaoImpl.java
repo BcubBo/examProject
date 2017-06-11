@@ -8,10 +8,10 @@ import com.bcubbo.tools.OracleConnection;
 
 public class UserDaoImpl implements UserDao {
  
-	public ResultSet queryUsers(String sql, Object[] params) throws Exception  {
+	public ResultSet queryUsers(Connection connection ,PreparedStatement preparedStatements,String sql, Object[] params) throws Exception  {
 		
-		Connection userConnection = OracleConnection.getInstance().getConnection();
-		PreparedStatement preparedStatement = null;
+		Connection userConnection = connection;
+		PreparedStatement preparedStatement = preparedStatements;
 		preparedStatement = userConnection.prepareStatement(sql);
 		
 		for(int i = 0 ;i<params.length;i++){
@@ -32,9 +32,9 @@ public class UserDaoImpl implements UserDao {
 		return resultSets;
 	}
 
-	public int updateUsers(String sql, Object[] params) throws Exception {
-		Connection userConnection = OracleConnection.getInstance().getConnection();
-		PreparedStatement preparedStatement = null;
+	public int updateUsers(Connection connection ,PreparedStatement preparedStatements,String sql, Object[] params) throws Exception {
+		Connection userConnection = connection;
+		PreparedStatement preparedStatement = preparedStatements;
 		int updateRows = 0 ;
 		preparedStatement = userConnection.prepareStatement(sql);
 		
@@ -52,7 +52,7 @@ public class UserDaoImpl implements UserDao {
 		
 	}
 
-	public int deleteUsers(String sql, Object[] params) throws Exception {
+	public int deleteUsers(Connection connection ,PreparedStatement preparedStatements,String sql, Object[] params) throws Exception {
 		Connection userConnection = OracleConnection.getInstance().getConnection();
 		PreparedStatement preparedStatement = null;
 		this.closeConneciton(userConnection, null, null);
@@ -67,7 +67,9 @@ ResultSet resultSets){
 		
 		
 		
-	}	
+	}
+
+
 
 	
 }

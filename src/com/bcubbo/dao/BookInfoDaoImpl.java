@@ -8,11 +8,11 @@ import com.bcubbo.tools.OracleConnection;
 
 public class BookInfoDaoImpl implements BookInfoDao {
 
-
-
-	public ResultSet queryBookInfo(String sql, Object[] params) throws Exception{
-		Connection bookInfoConnection = OracleConnection.getInstance().getConnection();
-		PreparedStatement preparedStatement = null;
+	
+	private static PreparedStatement preparedStatement = null;
+	public ResultSet queryBookInfo(Connection connection,PreparedStatement preparedStatements, String sql, Object[] params) throws Exception{
+		Connection bookInfoConnection = connection ;
+		PreparedStatement preparedStatement = preparedStatements;
 		
 		ResultSet resultSets = null;
 
@@ -32,24 +32,24 @@ public class BookInfoDaoImpl implements BookInfoDao {
 		return resultSets;
 	}
 
-	public int updateBookInfo(String sql, Object[] params) throws Exception{
+	public int updateBookInfo(Connection connection,PreparedStatement preparedStatements,String sql, Object[] params) throws Exception{
 		Connection bookInfoConnection = OracleConnection.getInstance().getConnection();
-		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement = preparedStatements;
 /*		this.closeConneciton(bookInfoConnection, null, null);
 		this.closeConneciton(null, preparedStatement, null);
 		*/
 		return 0;
 	}
 
-	public int deleteBookInfo(String sql, Object[] params) throws Exception{
+	public int deleteBookInfo(Connection connection,PreparedStatement preparedStatements,String sql, Object[] params) throws Exception{
 		Connection bookInfoConnection = OracleConnection.getInstance().getConnection();
-		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement = preparedStatements;
 /*		this.closeConneciton(bookInfoConnection, null, null);
 		this.closeConneciton(null, preparedStatement, null);*/
 		return 0;
 	}	
 
-	public void closeConneciton(Connection connection ,PreparedStatement preparedStatement,
+	public void closeConneciton(Connection connection ,PreparedStatement preparedStatements,
 ResultSet resultSets){
 		//关闭链接
 		

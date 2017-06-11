@@ -1,17 +1,17 @@
 package com.bcubbo.dao;
 
-import com.bcubbo.pojo.Users;
+import java.sql.ResultSet;
 
 public interface BookInfoDao {
 
 	//查询
-	public Users queryBookInfo(String sql,String userCode);
+	public ResultSet queryBookInfo(String sql,Object[] params)throws Exception;
 	
 	//增加
-	public int updateBookInfo(String sql,Object[] params);
+	public int updateBookInfo(String sql,Object[] params)throws Exception;
 	
 	//删除
-	public int deleteBookInfo(String sql, Object[] params);
+	public int deleteBookInfo(String sql, Object[] params)throws Exception;
 	
 	
 }

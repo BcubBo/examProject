@@ -48,4 +48,16 @@
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/register.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>UserNameCheckServlet</servlet-name>
+  	<servlet-class>com.bcubbo.servlet.UserNameCheckServlet</servlet-class>
+  
+  
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>UserNameCheckServlet</servlet-name>
+  	<url-pattern>/userName.do</url-pattern>
+  
+  
+  </servlet-mapping>
 </web-app>

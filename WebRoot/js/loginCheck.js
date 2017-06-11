@@ -12,6 +12,8 @@ $(function() {
     password = $("#user_password");
     submitButton = $("#loginButton");
     form = $("#form1");
+    alert = $("#alert");
+    
     account.bind("focus", function() {
 
         //

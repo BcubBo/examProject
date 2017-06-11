@@ -8,11 +8,11 @@ $(function(){
 	var password = $("#password");
 	var password2 = $("#password2");
 	var email = $("#email");
-	var emailReg = /^([A-Za-z]+\w*\@){1}(\w+\.)+[A-Za-z0-9]+$/ig;
+	
 	//email验证
 	var checkUsernameReg = /^[A-Za-z]{3}\w{0,13}$/;
 	//用户名验证
-	var checkPasswordReg = /^\w{8,32}$/;
+	
 	//密码验证
 
 	var userCodeBox = $("#userCodeBox");
@@ -20,7 +20,7 @@ $(function(){
 	var password2Box = $("#password2Box");
 	$("tr").css("width","500px");
 	var genderBox = $("#genderBox");
-	var emaiBox = $("#emailBox");
+	var emailBox = $("#emailBox");
 	
 	var userNameCheck = false;
 	//用户名检查结果标记
@@ -39,7 +39,7 @@ $(function(){
 			
 		}else{
 			
-			userCodeBox.css("color","red").html("您输入的用户名为:"+(userCode.val()));
+			userCodeBox.css("color","purple").html("您输入的用户名为:"+(userCode.val()));
 			
 		}
 		
@@ -68,7 +68,7 @@ $(function(){
 				$.ajax({
 					
 					type:"GET",
-					url:$("#hidden").val()+"/register.do",
+					url:$("#hidden").val()+"/userName.do",
 					data:{method:"checkAccountExist",userCode:userCode.val()},
 					dataType:"json",
 					success:function(data){
@@ -83,7 +83,8 @@ $(function(){
 						
 						userCodeBox.css("color","yellowgreen").html("可以注册");
 						userNameCheck =true;
-					}//if条件结尾
+						//用户名校验通过
+					}//if条件
 						
 					},
 					error:function(){
@@ -100,18 +101,118 @@ $(function(){
 					
 					
 				});//userName用户名ajax异步验证结尾
-			}//判断是否位空值得位置
+			}//判断是否为空值的位置
 		}
 		
 		
 		
 		
 		
-	});//userCode事件结尾
+	});//userCode事件
 	
-	password.bind("focus",function(){}).bind("blur",function(){});//密码验证结尾;
-	passwordBox.bind("focus",function(){}).bind("blur",function(){});//二次校验密码结尾；
-	email.bind("focus",function(){}).bind("blur",function(){});//email校验结尾
+	
+
+	
+	
+	
+	var emailReg = /^([A-Za-z]+\w*\@){1}(\w+\.)+[A-Za-z0-9]+$/ig;
+	var checkPasswordReg = /^\w{8,32}$/;
+	//密码格式验证
+	password.bind("focus",function(){
+	
+			
+			passwordBox.html("请输入密码，最少为8位字符").css("color","purple");
+			
+		
+		
+	}).bind("blur",function(){
+		
+		if(password.val().match(checkPasswordReg)&& password.val()!=null && password.val()!=""){
+					
+					passwordBox.html("正确").css("color","yellowgreen");
+					
+					//正则验证密码的正确性
+					
+				}else if(password.val()==null || password.val()==""){
+					
+					passwordBox.html("错误，不可为空").css("color","red");
+					
+				}else{
+					
+					passwordBox.html("错误，不符合规范,最少位8位字符").css("color","red");
+					
+				}//密码验证
+			
+		
+	});//首次密码验证;
+
+	password2.bind("focus",function(){
+		
+		password2Box.html("请再次输入密码").css("color","purple");
+		
+		
+		
+	}).bind("blur",function(){
+		
+		if(password.val()==password2.val() && password2.val()!=null && password2.val()!=""){
+			
+			password2Box.html("二次输入正确").css("color","yellowgreen");
+			passwordCheck = true;
+			//双次密码验证通过
+			
+			
+		}else{
+			
+			password2Box.html("请检查密码").css("color","red");
+			
+		}
+		
+		
+		
+		
+		
+		
+	});//二次校验密码；
+	email.bind("focus",function(){
+		
+		emailBox.html("请输入邮箱，例如:vip@vip.com.cn").css("color","purple");
+		
+		
+		
+	}).bind("blur",function(){
+		
+		if(email.val().match(emailReg)&& email.val()!=null && email.val()!=""){
+					
+					emailBox.html("正确").css("color","yellowgreen");
+					emailCheck = true;
+					
+					
+				}else{
+					
+					emailBox.html("错误，请检查格式，例如：vip@vip.com.cn").css("color","red");
+					
+				}
+		
+		
+		
+	});//email校验
+
+	var submitBtn = $("#submit");
+	submitBtn.bind("click",function(){
+
+		if(userNameCheck == true && emailCheck == true && passwordCheck == true){
+				submitBtn.submit();
+
+		}else{
+			alert("请检查数据");
+			
+			
+			
+		}
+		
+		
+		
+	})//submit点击事件;
 	
 	
 	

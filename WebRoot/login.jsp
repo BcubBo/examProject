@@ -17,7 +17,8 @@ String path = request.getContextPath();
 
 <div >
 <input type="hidden" value="${pageContext.request.contextPath}" id="hidden"></input>
- <form action="admin.jsp" method="post" id="form1" >
+<input type="hidden" value="${alert}" id="alert"></input>
+ <form action="admin.do" method="post" id="form1" >
  <table width="606" height="199" border="0" cellpadding="0" cellspacing="0" >
  
   <tr>

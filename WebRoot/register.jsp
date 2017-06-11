@@ -11,11 +11,15 @@
 </head>
 
 <body>
-<input type="hidden" value="${pageContext.request.contextPath}" id="hidden"></input>
-<form action="#" id="form1" method="post" >
+
+<form action="${pageContext.request.contextPath}/register.do" id="formSubmit" method="post" >
+<input type="hidden" value="${pageContext.request.contextPath}" id="hidden" ></input>
+<input type="hidden" name="methodCheck" value="register" />
 <table  height="314" border="0" cellpadding="0" cellspacing="0">
+
   <tr>
     <td colspan="2" ><h1>会员注册</h1></td>
+    
   </tr>
   <tr>
     <td>登录账号</td>
@@ -35,8 +39,8 @@
     
     <select name="gender">
     <option value="请选择">--请选择--</option>
-     <option value="男">男</option> 
-     <option value="女">女</option>
+     <option value="1">男</option> 
+     <option value="2">女</option>
     </select>
     <span id="genderBox">*</span> </td>
   </tr>
@@ -50,7 +54,7 @@
 
   <tr>
     <td colspan="2" align="left">
-    <input  type="submit" value="注册" /> 
+    <input  type="submit" value="注册" id="submit"/> 
     <input  type="button" value="返回"/>
     </td>
   </tr>

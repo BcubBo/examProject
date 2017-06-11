@@ -7,12 +7,11 @@ import java.sql.ResultSet;
 import com.bcubbo.tools.OracleConnection;
 
 public class UserDaoImpl implements UserDao {
-	private Connection userConnection = OracleConnection.getInstance().getConnection();
-	private PreparedStatement preparedStatement = null;
+ 
 	public ResultSet queryUsers(String sql, Object[] params) throws Exception  {
 		
-		
-		
+		Connection userConnection = OracleConnection.getInstance().getConnection();
+		PreparedStatement preparedStatement = null;
 		preparedStatement = userConnection.prepareStatement(sql);
 		
 		for(int i = 0 ;i<params.length;i++){
@@ -21,7 +20,9 @@ public class UserDaoImpl implements UserDao {
 		}
 		ResultSet resultSets = null;
 		resultSets = preparedStatement.executeQuery();
-		
+		this.closeConneciton(userConnection, null, null);
+		this.closeConneciton(null, preparedStatement, null);
+//在servlet中进行resultSets的关闭
 		
 		
 		
@@ -33,15 +34,43 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public int updateUsers(String sql, Object[] params) throws Exception {
-		return 0;
+		Connection userConnection = OracleConnection.getInstance().getConnection();
+		PreparedStatement preparedStatement = null;
+		int updateRows = 0 ;
+		preparedStatement = userConnection.prepareStatement(sql);
+		
+		for(int i = 0 ;i<params.length;i++){
+			
+			preparedStatement.setObject((i+1), params[i]);
+			
+			
+		}
+		
+		updateRows = preparedStatement.executeUpdate();
+		
+		this.closeConneciton(userConnection, null, null);
+		this.closeConneciton(null, preparedStatement, null);
+		
+		return updateRows;
+		
 	}
 
 	public int deleteUsers(String sql, Object[] params) throws Exception {
+		Connection userConnection = OracleConnection.getInstance().getConnection();
+		PreparedStatement preparedStatement = null;
+		this.closeConneciton(userConnection, null, null);
+		this.closeConneciton(null, preparedStatement, null);
 		return 0;
 	}
 
-
-
+	public void closeConneciton(Connection connection ,PreparedStatement preparedStatement,
+ResultSet resultSets){
+		
+		OracleConnection.closeResource(connection,preparedStatement,resultSets);
+		
+		
+		
+	}	
 
 	
 }

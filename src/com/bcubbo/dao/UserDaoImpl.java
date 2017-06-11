@@ -20,9 +20,8 @@ public class UserDaoImpl implements UserDao {
 		}
 		ResultSet resultSets = null;
 		resultSets = preparedStatement.executeQuery();
-		this.closeConneciton(userConnection, null, null);
-		this.closeConneciton(null, preparedStatement, null);
-//在servlet中进行resultSets的关闭
+
+		//在servlet中进行resultSets的关闭
 		
 		
 		
@@ -47,9 +46,7 @@ public class UserDaoImpl implements UserDao {
 		}
 		
 		updateRows = preparedStatement.executeUpdate();
-		
-		this.closeConneciton(userConnection, null, null);
-		this.closeConneciton(null, preparedStatement, null);
+
 		
 		return updateRows;
 		

@@ -71,6 +71,7 @@ public class RegisterServlet extends HttpServlet {
 							System.out.println("提交更改成功");
 							//request.getSession().setAttribute("userCode", userCode);
 							
+							
 							request.getRequestDispatcher("registerSuccess.jsp").forward(request, response);
 							
 							

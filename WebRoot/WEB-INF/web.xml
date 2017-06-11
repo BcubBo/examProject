@@ -49,15 +49,21 @@
     <url-pattern>/register.do</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>UserNameCheckServlet</servlet-name>
-  	<servlet-class>com.bcubbo.servlet.UserNameCheckServlet</servlet-class>
-  
-  
+    <servlet-name>UserNameCheckServlet</servlet-name>
+    <servlet-class>com.bcubbo.servlet.UserNameCheckServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>UserNameCheckServlet</servlet-name>
-  	<url-pattern>/userName.do</url-pattern>
-  
-  
+    <servlet-name>UserNameCheckServlet</servlet-name>
+    <url-pattern>/userName.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginDoubleCheckServlet</display-name>
+    <servlet-name>LoginDoubleCheckServlet</servlet-name>
+    <servlet-class>com.bcubbo.servlet.LoginDoubleCheckServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginDoubleCheckServlet</servlet-name>
+    <url-pattern>/logindoublecheck.do</url-pattern>
   </servlet-mapping>
 </web-app>

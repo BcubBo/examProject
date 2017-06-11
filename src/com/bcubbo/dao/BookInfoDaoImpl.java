@@ -21,11 +21,12 @@ public class BookInfoDaoImpl implements BookInfoDao {
 				preparedStatement.setObject((i+1), params[i]);
 				
 
-			 resultSets = preparedStatement.executeQuery();
+			 
 			
 			}
-			this.closeConneciton(bookInfoConnection, null, null);
-			this.closeConneciton(null, preparedStatement, null);
+			resultSets = preparedStatement.executeQuery();
+/*			this.closeConneciton(bookInfoConnection, null, null);
+			this.closeConneciton(null, preparedStatement, null);*/
 			
 			
 		return resultSets;
@@ -34,17 +35,17 @@ public class BookInfoDaoImpl implements BookInfoDao {
 	public int updateBookInfo(String sql, Object[] params) throws Exception{
 		Connection bookInfoConnection = OracleConnection.getInstance().getConnection();
 		PreparedStatement preparedStatement = null;
-		this.closeConneciton(bookInfoConnection, null, null);
+/*		this.closeConneciton(bookInfoConnection, null, null);
 		this.closeConneciton(null, preparedStatement, null);
-		
+		*/
 		return 0;
 	}
 
 	public int deleteBookInfo(String sql, Object[] params) throws Exception{
 		Connection bookInfoConnection = OracleConnection.getInstance().getConnection();
 		PreparedStatement preparedStatement = null;
-		this.closeConneciton(bookInfoConnection, null, null);
-		this.closeConneciton(null, preparedStatement, null);
+/*		this.closeConneciton(bookInfoConnection, null, null);
+		this.closeConneciton(null, preparedStatement, null);*/
 		return 0;
 	}	
 

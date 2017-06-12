@@ -96,9 +96,6 @@ public class LoginSerlvet extends HttpServlet {
 			}finally{
 				
 				
-/*				OracleConnection.closeResource(null, preparedStatement, null);
-				OracleConnection.closeResource(connection, null, null);
-				OracleConnection.closeResource(null, null, resultSets);*/
 				
 				
 			}

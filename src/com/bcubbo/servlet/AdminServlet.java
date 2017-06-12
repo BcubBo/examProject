@@ -52,7 +52,7 @@ public class AdminServlet extends HttpServlet {
 				bookItem.setCreationTime(resultSets.getDate("creation_time"));
 				bookItem.setLastUpdateTime((resultSets.getDate("last_updatetime")));		
 				bookInfoList.add(bookItem);
-				System.out.println("上次更新时间为"+resultSets.getString("last_updatetime"));
+				/*System.out.println("上次更新时间为"+resultSets.getString("last_updatetime"));*/
 				
 				
 			}

@@ -60,7 +60,7 @@ public class LoginDoubleCheckServlet extends HttpServlet {
 						response.setContentType("application/json");
 						PrintWriter outPrintWriter = response.getWriter();
 						
-						outPrintWriter.write(JSONArray.toJSONString(resultMap));
+						outPrintWriter.write(JSONArray.toJSONString(resultMap));//ajax异步
 						outPrintWriter.flush();
 						outPrintWriter.close();
 						resultMap.clear();
@@ -89,10 +89,7 @@ public class LoginDoubleCheckServlet extends HttpServlet {
 			}finally{
 				
 				
-/*				OracleConnection.closeResource(null, preparedStatement, null);
-				OracleConnection.closeResource(connection, null, null);
-				OracleConnection.closeResource(null, null, resultSets);
-				*/
+
 				
 			}
 		}

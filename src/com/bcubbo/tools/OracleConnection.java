@@ -14,7 +14,7 @@ public class OracleConnection {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			//因为在此进行了链接的启动，所以和mysql中的链接不一样。
 			//其在一开始的时候就进行了链接的创建所以在整个运行的项目中使用的都是一个链接
-			connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:bcubbo","bcubbo","BcubBo001");
+			connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:bcubbo","bcubbo2","BcubBo001");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

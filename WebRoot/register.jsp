@@ -55,7 +55,7 @@
   <tr>
     <td colspan="2" align="left">
     <input  type="submit" value="注册" id="submit"/> 
-    <input  type="button" value="返回"/>
+    <input  type="button" value="返回" id="return"/>
     </td>
   </tr>
   </table>

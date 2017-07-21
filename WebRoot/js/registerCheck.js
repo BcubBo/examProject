@@ -215,7 +215,19 @@ $(function(){
 	})//submit点击事件;
 	
 	
-	
+	var returnBtn = $("#return");
+	returnBtn.on("click",function(){
+		
+		
+		window.location="login.jsp";
+		
+		
+		
+		
+		
+		
+		
+	})//return返回点击事件
 	
 	
 	
